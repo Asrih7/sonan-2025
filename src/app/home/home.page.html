@@ -1,0 +1,39 @@
+<ion-content [fullscreen]="true">
+
+  <div class="wrapper">
+    <div class="container">
+
+      @for (item of homeData; track item.id) {
+        <div class="row">
+          <div class="col-12 mb-4">
+            <div class="card1">
+              <div class="p-1 bg-white border border-gray-200 rounded-lg shadow dark-bg dark-border">
+                <h5 class="small mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ item.title }}</h5>
+                @if (item.id == 2) {
+                  <p class="col-12 mb-3 font-normal text-gray-700">{{ sonanDataLength$ | async }}</p>
+                } @else if(item.id == 1){
+                  <p class="col-12 mb-3 font-normal text-gray-700">{{ advicesDataLength$ | async }}</p>
+                } @else if(item.id == 5){
+                  <p class="col-12 mb-3 font-normal text-gray-700">{{ forgettableSonanDataLength$ | async }}</p>
+                } @else if(item.id == 4){
+                  <p class="col-12 mb-3 font-normal text-gray-700">{{ adhkarDataLength$ | async }}</p>
+                } @else if(item.id == 3){
+                  <p class="col-12 mb-3 font-normal text-gray-700">{{ wifeSonanDataLength$ | async }}</p>
+                } @else {
+                  nothing
+                }
+                <div class="go-corner" href="#">
+                  <div class="go-arrow">
+                    <button (click)="navigateToChildPage(item.link)" class="">
+                      →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</ion-content>
