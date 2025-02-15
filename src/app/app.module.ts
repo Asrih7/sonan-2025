@@ -5,6 +5,8 @@ import { APP_INITIALIZER_DATA, appInitializer } from './shared/app-initializer';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -15,6 +17,8 @@ import { DataServices } from './shared/home-data.service';
 
 import { AppComponent } from './app.component';
 
+import { SonanWithWifeModule } from './home/sonan-with-wife/sonan-with-wife.module';
+
 import * as allReducers from './shared/reducer/reducer';
 
 
@@ -22,7 +26,10 @@ import * as allReducers from './shared/reducer/reducer';
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    CommonModule,
+    SonanWithWifeModule,
     BrowserModule,
+    BrowserAnimationsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,

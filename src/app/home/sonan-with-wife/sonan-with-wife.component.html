@@ -1,3 +1,25 @@
-<p>
-  sonan-with-wife works!
-</p>
+
+
+
+    <!-- carousel -->
+    <ion-content [fullscreen]="true">
+
+    <div class="carousel">
+    <ng-container *ngFor="let image of images; let i = index">
+      <img
+        *ngIf="i === currentSlide"
+        [src]="image.src"
+        class="slide"
+        [@slideAnimation]="animationType"
+      />
+    </ng-container>
+  
+    <!-- controls -->
+    <button class="control prev" (click)="onPreviousClick()">
+      <span class="arrow left"></span>
+    </button>
+    <button class="control next" (click)="onNextClick()">
+      <span class="arrow right"></span>
+    </button>
+  </div>
+</ion-content>
