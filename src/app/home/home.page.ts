@@ -27,22 +27,33 @@ export class HomePage implements OnInit {
     private store: Store
   ) {}
 
-  ngOnInit(): void {
+    ngOnInit(): void {
     this.homeData$ = this.dataService.getData();
     this.homeData$.subscribe((data) => {
-      console.log(data);
+      console.log('Home Data:', data);
       this.homeData = data;
-      console.log('test' + this.homeData);
     });
 
-    // Use the selectors from the updated structure
+    // Debug: Check what's in the store for advices
+    this.store.pipe(select(fromReducer.selectAdvicesState.dataLengthSelector)).subscribe(advicesData => {
+      console.log('Advices Data in Store:', advicesData);
+      console.log('Advices Data Type:', typeof advicesData);
+      console.log('Is Array:', Array.isArray(advicesData));
+      if (advicesData && Array.isArray(advicesData)) {
+        console.log('Advices Length:', advicesData.length);
+      }
+    });
+
+    this.store.pipe(select(fromReducer.selectAdvicesState.dataLengthSelector)).subscribe(length => {
+      console.log('Advices Length from Selector:', length);
+    });
+
+    // Use the selectors
     this.sonanDataLength$ = this.store.pipe(select(fromReducer.selectSonanState.dataLengthSelector));
     this.advicesDataLength$ = this.store.pipe(select(fromReducer.selectAdvicesState.dataLengthSelector));
     this.forgettableSonanDataLength$ = this.store.pipe(select(fromReducer.selectForgettableSonanState.dataLengthSelector));
     this.adhkarDataLength$ = this.store.pipe(select(fromReducer.selectAdhkarState.dataLengthSelector));
     this.wifeSonanDataLength$ = this.store.pipe(select(fromReducer.selectWifeSonanState.dataLengthSelector));
-
-
   }
 
   navigateToChildPage(childRoute: string): void {

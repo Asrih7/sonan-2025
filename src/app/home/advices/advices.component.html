@@ -1,3 +1,86 @@
-<p>
-  advices works!
-</p>
+<ion-content [fullscreen]="true">
+  <div *ngIf="loading" class="text-center">
+    <p>جاري التحميل...</p>
+  </div>
+
+  <div *ngIf="!loading && adviceData && adviceData.length > 0" class="container">
+    <h2  class="text-docartion" align="center">{{ title }}</h2>
+    <p align="center" class="text-docartion">
+      {{ subtitle }}
+    </p>
+    
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default" *ngFor="let advice of adviceData">
+        <div class="panel-heading">
+          <h4 align="center">
+            <a (click)="toggleAdvice(advice.id)" class="advice-link">
+              {{ advice.title }}
+            </a>
+          </h4>
+        </div>
+        
+        <div *ngIf="isAdviceOpen(advice.id)" class="panel-collapse show">
+          <div class="panel">
+            <!-- Intro -->
+            <div *ngIf="advice.content?.intro" align="center" class="text-docartion">
+              {{ advice.content.intro }}
+            </div>
+            
+            <!-- Narrator -->
+            <div *ngIf="advice.content?.narrator" align="center" class="text-docartion">
+              {{ advice.content.narrator }}
+            </div>
+            
+            <!-- Main Hadith -->
+            <div *ngIf="advice.content?.hadith" align="center" class="text-docartion">
+              {{ advice.content.hadith }}
+            </div>
+            
+            <!-- Source -->
+            <div *ngIf="advice.content?.source" align="left" class="text-docartion">
+              {{ advice.content.source }}
+            </div>
+            
+            <!-- Quran Verse -->
+            <div *ngIf="advice.content?.quran" align="center" class="text-docartion">
+              {{ advice.content.quran }}
+            </div>
+            
+            <!-- Quran Source -->
+            <div *ngIf="advice.content?.quranSource" align="left" class="text-docartion">
+              {{ advice.content.quranSource }}
+            </div>
+            
+            <!-- Explanation -->
+            <div *ngIf="advice.content?.explanation" align="center" class="text-docartion">
+              {{ advice.content.explanation }}
+            </div>
+            
+            <!-- Additional Narrator -->
+            <div *ngIf="advice.content?.additionalNarrator" align="center" class="text-docartion">
+              {{ advice.content.additionalNarrator }}
+            </div>
+            
+            <!-- Additional Hadith -->
+            <div *ngIf="advice.content?.additionalHadith" align="center" class="text-docartion">
+              {{ advice.content.additionalHadith }}
+            </div>
+            
+            <!-- Additional Source -->
+            <div *ngIf="advice.content?.additionalSource" align="left" class="text-docartion">
+              {{ advice.content.additionalSource }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Show message if no data -->
+  <div *ngIf="!loading && (!adviceData || adviceData.length === 0)" class="container">
+    <h2 align="center">{{ title }}</h2>
+    <p align="center" class="text-docartion">
+      لا توجد بيانات متاحة
+    </p>
+  </div>
+</ion-content>

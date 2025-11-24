@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +23,11 @@ export class DataServices {
   getSonan(): Observable<any[]> {
     return this.http.get<any[]>(this.dataSonanUrl);
   }
+ 
   getAdvices(): Observable<any[]> {
-    return this.http.get<any[]>(this.dataAdvicesUrl);
+    return this.http.get<any>(this.dataAdvicesUrl).pipe(
+      map(response => response.advices || response) // Extract advices array
+    );
   }
   getForgettableSonan(): Observable<any[]> {
     return this.http.get<any[]>(this.dataForgettableSonanUrl);

@@ -1,3 +1,77 @@
-<p>
-  forgettable-sonan works!
-</p>
+<ion-content [fullscreen]="true" class="carousel-container">
+  <div class="carousel-wrapper">
+    <!-- Header -->
+    <div class="carousel-header">
+      <h1 class="carousel-title">سنن منسية</h1>
+  <p class="carousel-subtitle">صور توضيحية للسُنن النبوية المنسية</p>
+    </div>
+
+    <!-- Main Carousel -->
+    <div class="carousel">
+      <div class="slide-container">
+        <ng-container *ngFor="let image of images; let i = index">
+          <div 
+            *ngIf="i === currentSlide"
+            class="slide-content"
+            [@slideAnimation]="animationType"
+          >
+            <img
+              [src]="image.src"
+              [alt]="'سُنن ' + image.id"
+              class="slide-image"
+            />
+            <div class="slide-caption">
+              <p class="caption-description">الصورة {{ image.id }} من {{ images.length }}</p>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- Navigation Controls -->
+      <button class="control prev" (click)="onPreviousClick()" aria-label="الصورة السابقة">
+        <ion-icon name="chevron-back-outline" class="control-icon"></ion-icon>
+      </button>
+      <button class="control next" (click)="onNextClick()" aria-label="الصورة التالية">
+        <ion-icon name="chevron-forward-outline" class="control-icon"></ion-icon>
+      </button>
+
+      <!-- Indicators -->
+      <div class="indicators" *ngIf="images.length > 1">
+        <button
+          *ngFor="let image of images; let i = index"
+          class="indicator"
+          [class.active]="i === currentSlide"
+          (click)="goToSlide(i)"
+          [attr.aria-label]="'انتقل إلى الصورة ' + (i + 1)"
+        >
+          <div class="indicator-progress"></div>
+        </button>
+      </div>
+
+      <!-- Slide Counter -->
+      <div class="slide-counter">
+        <span class="current-slide">{{ currentSlide + 1 }}</span>
+        <span class="counter-separator">/</span>
+        <span class="total-slides">{{ images.length }}</span>
+      </div>
+    </div>
+
+    <!-- Thumbnail Navigation -->
+    <div class="thumbnails" *ngIf="images.length > 1">
+      <div
+        *ngFor="let image of images; let i = index"
+        class="thumbnail"
+        [class.active]="i === currentSlide"
+        (click)="goToSlide(i)"
+        [attr.aria-label]="'انتقل إلى الصورة ' + (i + 1)"
+      >
+        <img 
+          [src]="image.src" 
+          [alt]="'صورة مصغرة ' + (i + 1)" 
+          class="thumbnail-image" 
+        />
+        <div class="thumbnail-number">{{ i + 1 }}</div>
+      </div>
+    </div>
+  </div>
+</ion-content>
